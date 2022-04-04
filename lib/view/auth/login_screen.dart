@@ -1,7 +1,11 @@
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/view/auth/second_screen.dart';
+import 'package:ecommerce_app/view/widgets/custom_button.dart';
+import 'package:ecommerce_app/view/widgets/custom_social_button.dart';
 import 'package:ecommerce_app/view/widgets/custom_text.dart';
 import 'package:ecommerce_app/view/widgets/custom_text_form_feild.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,14 +19,14 @@ class LoginScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
+          padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   CustomText(
-                    text: "تسجيل الدخول",
+                    text: "تسجيل حساب جديد",
                     color: kPrimaryColor,
                     fontSize: 20,
                   ),
@@ -77,7 +81,50 @@ class LoginScreen extends StatelessWidget {
                 text: 'نسيت الرقم السري',
                 fontSize: 16,
                 color: Colors.blueAccent,
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                text: 'تسجيل الدخول',
+                onPressed: () {
+                  Get.to(() => const SecondScreen());
+                },
+                backbgoundColor: kPrimaryColor,
+                textColor: Colors.white,
+                alignment: Alignment.center,
+                fontSize: 18,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const CustomText(
+                alignment: Alignment.center,
+                text: ' او ',
+                color: Colors.black,
+                fontSize: 20,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const CustomSocialButton(
+                text: 'عن طريق جوجل',
+                image: 'assets/images/google-icon.png',
+                onPressed: null,
+                borderColor: Colors.redAccent,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const CustomSocialButton(
+                text: 'عن طريق فيسبوك',
+                image: 'assets/images/facebook-icon.png',
+                onPressed: null,
+                borderColor: Colors.blueAccent,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
