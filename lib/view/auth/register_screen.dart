@@ -1,15 +1,16 @@
-import 'package:ecommerce_app/constants.dart';
-import 'package:ecommerce_app/core/view_model/auth_controller.dart';
-import 'package:ecommerce_app/view/auth/register_screen.dart';
-import 'package:ecommerce_app/view/widgets/custom_button.dart';
-import 'package:ecommerce_app/view/widgets/custom_social_button.dart';
-import 'package:ecommerce_app/view/widgets/custom_text.dart';
-import 'package:ecommerce_app/view/widgets/custom_text_form_feild.dart';
+import 'package:ecommerce_app/view/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends GetWidget<AuthController> {
-  LoginScreen({Key? key}) : super(key: key);
+import '../../constants.dart';
+import '../../core/view_model/auth_controller.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_social_button.dart';
+import '../widgets/custom_text.dart';
+import '../widgets/custom_text_form_feild.dart';
+
+class RegisterScreen extends GetWidget<AuthController> {
+  RegisterScreen({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -19,6 +20,15 @@ class LoginScreen extends GetWidget<AuthController> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
+        leading: GestureDetector(
+          onTap: () {
+            Get.off(() => LoginScreen());
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -27,34 +37,32 @@ class LoginScreen extends GetWidget<AuthController> {
             key: _formkey,
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: (() {
-                        Get.to(() => RegisterScreen());
-                      }),
-                      child: const CustomText(
-                        text: "تسجيل حساب جديد",
-                        color: kPrimaryColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const CustomText(
-                      text: "مرحبا بك",
-                      color: Colors.black,
-                      fontSize: 30,
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => LoginScreen());
+                  },
+                  child: const CustomText(
+                    text: "لديك حساب بالفعل؟",
+                    color: kPrimaryColor,
+                    fontSize: 20,
+                    alignment: Alignment.bottomRight,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                const CustomText(
-                  alignment: Alignment.centerRight,
-                  text: 'سجل الدخول للمتابعه',
-                  color: Colors.grey,
-                  fontSize: 16,
+                CustomTextFormField(
+                  hint: 'اسم المستخدم',
+                  text: ' اسم المستخدم',
+                  onSaved: (String? value) {
+                    controller.name = value;
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return ' اسم المستخدم مطلوب';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -100,48 +108,17 @@ class LoginScreen extends GetWidget<AuthController> {
                   height: 20,
                 ),
                 CustomButton(
-                  text: 'تسجيل الدخول',
+                  text: 'تسجيل مستخدم جديد',
                   onPressed: () {
                     _formkey.currentState!.save();
                     if (_formkey.currentState!.validate()) {
-                      controller.signInWithEmailAndPassword();
+                      controller.createAccountWithEmailAndPassword();
                     }
                   },
                   backbgoundColor: kPrimaryColor,
                   textColor: Colors.white,
                   alignment: Alignment.center,
                   fontSize: 18,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const CustomText(
-                  alignment: Alignment.center,
-                  text: ' او ',
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomSocialButton(
-                  text: 'عن طريق جوجل',
-                  image: 'assets/images/google-icon.png',
-                  onPressed: () {
-                    controller.googleSignMethod();
-                  },
-                  borderColor: Colors.redAccent,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomSocialButton(
-                  text: 'عن طريق فيسبوك',
-                  image: 'assets/images/facebook-icon.png',
-                  onPressed: () {
-                    // controller.facebookSigninMethod();
-                  },
-                  borderColor: Colors.blueAccent,
                 ),
                 const SizedBox(
                   height: 20,
